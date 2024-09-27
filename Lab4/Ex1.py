@@ -6,5 +6,14 @@ Last = input("Please enter your last name: ")
 
 FullName = First + " " + MiddleInitial + " " + Last
 print("Your full name is:", FullName)
+
 print(f"{First } {MiddleInitial } {Last}")
+
 print("Your full name is %s %s %s" % (First, MiddleInitial, Last))
+
+print("{} {} {}".format(First, MiddleInitial, Last))
+
+print(" ".join([First, MiddleInitial, Last]))
+
+namelist = [First, MiddleInitial, Last]
+print("{} {} {}".format(*namelist))
