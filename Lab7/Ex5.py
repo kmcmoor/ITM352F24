@@ -12,3 +12,13 @@ while index < listLen:
     index += 1
 
 print(MyDict)
+
+
+# Do the above without loops
+
+#Years = (1980, 1982, 1983, 1984, 1985, 1986, 1987, 1988, 1989)
+#Respondents = (17, 35, 26, 26, 25, 27, 35, 21, 19)
+
+#MyDict = dict(zip(Years, Respondents))
+
+#print(MyDict)
