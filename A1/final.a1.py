@@ -4,7 +4,7 @@
 # 2. If a user enters any other response, such as "q", it should be ignored and the user should be re-prompted
 # 3. Let them know if their answer is correct or not
 # 4. At the end of the quiz, it should report the final score
-# 5. Write the history of scores out to a file
+# 5. Write the history of scores out to a file (scorehistory.txt)
 # 6. Notify the user when they get a new high score
 
 import datetime # To create a time stamp
@@ -57,6 +57,32 @@ for question, alternatives in QUESTIONS.items():
 
 # Reporting the final score at the end of the quiz
 print(f"Your final score is: {score} out of {len(QUESTIONS)}")
+
+
+
+# Check if the user got a high score
+high_score = 0  
+try:
+    f = open("scorehistory.txt", "r")
+    last_line = None  # Using last_line to store the last line
+    for line in f:
+        last_line = line  # To keep updating last_line with the current line
+    f.close()  
+
+    if last_line:  
+        high_score = int(last_line.split(':')[1].strip().split()[0])  # Get the score part
+except FileNotFoundError:
+    high_score = 0  # If the file doesn't exist, keep high_score as 0
+
+
+# Notify user of new high score
+if score > high_score:
+    print(f"Congratulations! You've set a new high score: {score} out of {len(QUESTIONS)}!")
+else:
+    print(f"Your score did not beat the high score of: {score} out of {len(QUESTIONS)}")
+
+
+
 
 # Write the history of scores out to a file
 # I used W3schools to help! It's under the File Handling section, and says Python Write/Create Files
