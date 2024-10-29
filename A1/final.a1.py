@@ -11,9 +11,11 @@ import datetime # To create a time stamp
 
 
 QUESTIONS = {
-    "What is the airspeed of an unladen swallow in miles/hr": ["12", "11", "8", "14"],
-    "What is the capital of Texas": ["Austin", "San Antonio", "Dallas", "Houston"],
-    "The Last Supper was painted by which artist": ["Da Vinci", "Rembrandt", "Picasso", "Michelangelo"]
+    "On what side of Oahu does the sun rise": ["East", "West", "North", "South"],
+    "What is the name of the Hawaiian state fish": ["Humuhumunukunukuapua'a", "Mahi mahi", "Saddle wrasse", "Hapu'upu'u"],
+    "How many major islands make up Hawai'i": ["8", "7", "6", "1"],
+    "What is the capital of Hawai'i": ["Honolulu", "Hilo", "Kahului", "Mililani"],
+    "Which Hawaiian island is known as 'The Garden Isle'?": ["Kaua'i", "O'ahu", "Maui", "Moloka'i"]
 }
 
 # Initializing the variable, score, to keep track of the number of correct answers
@@ -59,29 +61,24 @@ for question, alternatives in QUESTIONS.items():
 print(f"Your final score is: {score} out of {len(QUESTIONS)}")
 
 
-
 # Check if the user got a high score
-high_score = 0  
+# Used ChatGPT for help on this part since I kept getting an error message
 try:
-    f = open("scorehistory.txt", "r")
-    last_line = None  # Using last_line to store the last line
-    for line in f:
-        last_line = line  # To keep updating last_line with the current line
-    f.close()  
-
-    if last_line:  
-        high_score = int(last_line.split(':')[1].strip().split()[0])  # Get the score part
-except FileNotFoundError:
-    high_score = 0  # If the file doesn't exist, keep high_score as 0
+    with open("scorehistory.txt", "r") as f:
+        high_score_line = f.readlines()[-1]  # to read the last line 
+        # Split the line and get the score part instead of the time stamp
+        high_score = int(high_score_line.split(": ")[1].split()[0])  # Get the score part
+except (FileNotFoundError, IndexError):
+    high_score = 0  # No previous scores found
+except ValueError:
+    high_score = 0  # In case the score cannot be converted to int
 
 
 # Notify user of new high score
 if score > high_score:
     print(f"Congratulations! You've set a new high score: {score} out of {len(QUESTIONS)}!")
 else:
-    print(f"Your score did not beat the high score of: {score} out of {len(QUESTIONS)}")
-
-
+    print(f"Your score of {score} did not beat the high score of: {high_score} out of {len(QUESTIONS)}")
 
 
 # Write the history of scores out to a file
