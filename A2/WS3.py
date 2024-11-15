@@ -1,4 +1,5 @@
-# Allow users....
+# Allow users to interactively explore and analyze sales data from a CSV file by
+# providing a simple command-line interface.
 import pandas as pd
 import pyarrow  
 import ssl
@@ -7,8 +8,9 @@ import time
 ssl._create_default_https_context = ssl._create_unverified_context
 
 # Set the display to show all columns
-pd.set_option("display.max_columns", None)
+#pd.set_option("display.max_columns", None)
 pd.set_option("display.max_rows", None)
+
 
 # Import the data file.  This needs to be downloaded to be used by Pandas.  
 # It is in CSV format.
@@ -44,11 +46,11 @@ def load_csv(file_path):
         return sales_data
 
     except FileNotFoundError:
-        print (f"Error the file {file_path} was not found")
+        print(f"Error: the file {file_path} was not found.")
     except pd.errors.EmptyDataError as e:
-        print (f"Error the file {file_path} was empty")
+        print(f"Error: the file {file_path} was empty.")
     except pd.errors.ParserError as e:
-        print (f"Error there was a problem parsing {file_path}")
+        print(f"Error: there was a problem parsing {file_path}.")
     except Exception as e:
         print(f"An unexpected error has occurred: {e}")
 
@@ -56,7 +58,7 @@ def load_csv(file_path):
 def display_rows(data):
     while True:
         numRows = len(data) - 1
-        print("\nEnter number of rows to display: ")
+        print("\nEnter number of rows to display:")
         print(f"- Enter a number between 1 and {numRows}")
         print("- To see all rows enter 'all'")
         print("- To skip, press Enter")
@@ -72,14 +74,15 @@ def display_rows(data):
             print(data.head(int(user_choice)))
             break
         else:
-            print("Invalid input, please reenter")
+            print("Invalid input. Please re-enter.")
 
 # Call load_csv to load the file
-url = "https://drive.google.com/uc?export=download&id=1Fv_vhoN4sTrUaozFPfzr0NCyHJLIeXEA"
+#url = "https://drive.google.com/uc?export=download&id=1Fv_vhoN4sTrUaozFPfzr0NCyHJLIeXEA"
+url = 'sales_data_test.csv'
 sales_data = load_csv(url)
 
 # Main loop for user interaction
-def main ():
+def main():
     while True:
         display_rows(sales_data)
 

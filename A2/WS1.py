@@ -1,16 +1,15 @@
 # * For Assignment 2 Workshop, this is exercise #1
-# 
-#
-
+# Read a file from a URL and write a local file "sales_data_test.csv"
+# containing just the first 10 rows of data
 import pandas as pd
-import pyarrow #
+import pyarrow  # not needed here
 import ssl
 
 ssl._create_default_https_context = ssl._create_unverified_context
 
-#Import the data file. This needs to be downloaded to be used by Pandas.
-# It is in CSV format
-url = "https://drive.google.com/file/d/1Fv_vhoN4sTrUaozFPfzr0NCyHJLIeXEA/view?usp=sharing" #If you have trouble, delete the last part of the url, to load the file properly
+# Import the data file.  This needs to be downloaded to be used by Pandas.  
+# It is in CSV format.
+url = "https://drive.google.com/uc?export=download&id=1Fv_vhoN4sTrUaozFPfzr0NCyHJLIeXEA" #If you have trouble, delete the last part of the url, to load the file properly
 
 #Attempt to read the CSV file
 try:
