@@ -1,9 +1,11 @@
 # Instructions:
 # Build a dashboard that analyzes sales data that:
-# 1. Loads the sales data file appropriately 
-# 2. Displays 10 options on how the user wants to view the data
-# 3. Creates pivot tables for this data
-# 4. For option #9, allows the user to create their own pivot table - viewing the data however they want to
+# R1: Loads the sales data file appropriately 
+# R2: Displays 10 options on how the user wants to view the data
+# R3: Creates pivot tables for this data
+# R4: For option #9, allows the user to create their own pivot table - viewing the data however they want to
+# IR 1: For each result, ask the user if they want the results exported to an Excel file (that can be read directly into Excel). Ask the user what filename they want.
+# IR 2: When the sales data is loaded, display a summary of the data (total orders, number of employees, sales regions, dates range of orders, number of unique customers, product categories, unique states, total sales amount, total quantities of products sold). If some data is not available (missing columns) for a pre-defined analytic, remove that analytic from the menu options.
 
 
 
@@ -53,9 +55,10 @@ def load_csv(file_path):
 
         # Save the first 10 rows of the data in sales_data_test.csv
         sales_data.head(10).to_csv('sales_data_test.csv')
+        data_summary(sales_data)
 
         return sales_data
-
+    
     except FileNotFoundError:
         print(f"Error: the file {file_path} was not found.")
     except pd.errors.EmptyDataError as e:
@@ -64,6 +67,31 @@ def load_csv(file_path):
         print(f"Error: there was a problem parsing {file_path}.")
     except Exception as e:
         print(f"An unexpected error has occurred: {e}")
+
+
+
+#IR2
+# Display a summary of data. Used Claude for help on how to do this
+def data_summary(data):
+    print("\n--- Sales Data Summary ---")
+    print(f"Total Orders: {len(data)}")
+    
+    if 'sales_region' in data.columns:
+        print(f"Unique Sales Regions: {data['sales_region'].nunique()}")
+    
+    if 'order_date' in data.columns:
+        earliest_date = data['order_date'].min()
+        latest_date = data['order_date'].max()
+        print(f"Order Dates From: {earliest_date.date()} To: {latest_date.date()}")
+    
+    if 'customer_id' in data.columns:
+        print(f"Unique Customers: {data['customer_id'].nunique()}")
+    
+    if 'quantity' in data.columns:
+        print(f"Total Products Sold: {data['quantity'].sum()}")
+    
+    if 'unit_price' in data.columns:
+        print(f"Total Sales Value: ${data['unit_price'].sum():,.2f}")
 
 
 
@@ -97,6 +125,25 @@ def display_menu(data):
 
 
 
+#IR1
+# Ask the user if they want to export their pivot table to an excel file
+def export_to_excel(df):
+    export_choice = input("\nDo you want to export the results to an Excel file? Type 'Yes' or 'No'").strip().lower()
+    
+    if export_choice == 'Yes':
+        filename = input("Enter the filename (with .xlsx extension): ").strip()
+        
+        try:
+            # Couldn't figure out how to actually save a pivot table to Excel, used ChatGPT for help on this one!
+            df.to_excel(filename, index=True)
+            print(f"Results exported to {filename}")
+        except Exception as e:
+            print(f"Error exporting to Excel: {e}")
+    else:
+        print("Results not exported.")
+
+
+
 #R3
 # (Option #1) Function to display a user-choosable number of rows
 def display_rows(data):
@@ -127,6 +174,7 @@ def sales_by_region(data):
     )
     print("\nTotal Sales by Region and Order Type\n")
     print(salespivot)
+    export_to_excel(salespivot)
     return salespivot
 
 # (Option #3) Print average sales by state and columns being order type 
@@ -136,6 +184,7 @@ def avgsales_by_state(data):
     )
     print("\nAverage Sales by State and Order Type\n")
     print(avgsalespivot)
+    export_to_excel(avgsalespivot)
     return avgsalespivot
 
 # (Option #4) Print total sales by state and columns being customer type and order type 
@@ -145,6 +194,7 @@ def sales_by_state(data):
     )
     print("\nSales by Customer Type and Order Type by State\n")
     print(salesbystatepivot)
+    export_to_excel(salesbystatepivot)
     return salesbystatepivot
 
 # (Option #5) Print total sales by region and product and columns being quantity and sales price 
@@ -154,6 +204,7 @@ def sales_by_product(data):
     )
     print("\nTotal Sales Quantity and Price by Region and Product\n")
     print(salesbyproductpivot)
+    export_to_excel(salesbyproductpivot)
     return salesbyproductpivot
 
 # (Option #6) Print total sales by order and customer type and columns being quantity and sales price
@@ -163,6 +214,7 @@ def sales_by_order(data):
     )
     print("\nTotal Sales Quantity and Price Customer Type\n")
     print(salesbyorderpivot)
+    export_to_excel(salesbyorderpivot)
     return salesbyorderpivot
 
 # (Option #7) Print sales by category and shows the max and min sales price per row 
@@ -172,6 +224,7 @@ def sales_by_category(data):
     )
     print("\nSales By Category and the Max and Min Sales Price Per Row\n")
     print(salesbycategorypivot)
+    export_to_excel(salesbycategorypivot)
     return salesbycategorypivot
 
 # (Option #8) Print the number of unique employees per region
@@ -181,6 +234,7 @@ def employees_by_region(data):
     print("\nNumber of Employees by Region")
     employeespivot.columns = ['Number of Employees']  # Rename the column for readability
     print(employeespivot)
+    export_to_excel(employeespivot)
     return employeespivot
 
 # (Option #10) Cleanly exit the program
@@ -289,6 +343,7 @@ def custom_pivot_table(data):
             )
             print(f"\nCustom Pivot Table\n")
             print(custom_pivot)
+            export_to_excel(custom_pivot)
         except Exception as e:
             print(f"Error creating the pivot table: {e}")
 
