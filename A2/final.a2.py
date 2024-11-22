@@ -55,7 +55,7 @@ def load_csv(file_path):
 
         # Save the first 10 rows of the data in sales_data_test.csv
         sales_data.head(10).to_csv('sales_data_test.csv')
-        data_summary(sales_data)
+        display_summary(sales_data)
 
         return sales_data
     
@@ -72,26 +72,66 @@ def load_csv(file_path):
 
 #IR2
 # Display a summary of data. Used Claude for help on how to do this
-def data_summary(data):
-    print("\n--- Sales Data Summary ---")
-    print(f"Total Orders: {len(data)}")
+def display_summary(data):
+    print("\nSummary of Sales Data")
+    data_summary = {
+        'Total Orders': None, 
+        'Number of Employees': 'employee_id',
+        'Sales Regions': 'sales_region',
+        'Date Range': 'order_date',
+        'Unique Customers': 'customer_id',
+        'Product Categories': 'product_category',
+        'Unique States': 'customer_state',
+        'Total Sales Amount': 'unit_price',
+        'Total Products Sold': 'quantity'
+    }
     
-    if 'sales_region' in data.columns:
-        print(f"Unique Sales Regions: {data['sales_region'].nunique()}")
-    
-    if 'order_date' in data.columns:
-        earliest_date = data['order_date'].min()
-        latest_date = data['order_date'].max()
-        print(f"Order Dates From: {earliest_date.date()} To: {latest_date.date()}")
-    
-    if 'customer_id' in data.columns:
-        print(f"Unique Customers: {data['customer_id'].nunique()}")
-    
-    if 'quantity' in data.columns:
-        print(f"Total Products Sold: {data['quantity'].sum()}")
-    
-    if 'unit_price' in data.columns:
-        print(f"Total Sales Value: ${data['unit_price'].sum():,.2f}")
+    # Print a description of each data
+    for description, required_column in data_summary.items():
+        try:
+            if required_column is None:
+                print(f"{description}: {len(data)}")
+            
+            elif required_column in data.columns:
+                if required_column == 'order_date':
+                    earliest_date = data['order_date'].min()
+                    latest_date = data['order_date'].max()
+                    print(f"{description}: {earliest_date.date()} to {latest_date.date()}")
+                
+                elif description == 'Number of Employees':
+                    print(f"{description}: {data['employee_id'].nunique()}")
+                
+                elif description == 'Sales Regions':
+                    regions = data['sales_region'].unique()
+                    print(f"{description}: {', '.join(regions)}")
+                
+                elif description == 'Product Categories':
+                    categories = data['product_category'].unique()
+                    print(f"{description}: {', '.join(categories)}")
+                
+                elif description == 'Unique States':
+                    states = data['customer_state'].unique()
+                    print(f"{description}: {', '.join(states)}")
+                
+                elif description == 'Unique Customers':
+                    print(f"{description}: {data['customer_id'].nunique()}")
+                
+                elif description == 'Total Sales Amount':
+                    total_sales = data['unit_price'].sum()
+                    print(f"{description}: ${total_sales:,.2f}")
+                
+                elif description == 'Total Products Sold':
+                    print(f"{description}: {data['quantity'].sum():,}")
+            
+            else:
+                print(f"{description}: Data not available (missing {required_column} column)")
+                
+                # If some data is not available (missing columns) for a pre-defined analytic, remove that analytic from the menu options
+                if description == 'Number of Employees' and 'employees_by_region' in globals():
+                    menu_options = [opt for opt in menu_options if opt[1] != employees_by_region]
+                    
+        except Exception as e:
+            print(f"{description}: Unable to calculate ({str(e)})")
 
 
 
