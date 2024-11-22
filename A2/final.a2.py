@@ -128,19 +128,26 @@ def display_menu(data):
 #IR1
 # Ask the user if they want to export their pivot table to an excel file
 def export_to_excel(df):
-    export_choice = input("\nDo you want to export the results to an Excel file? Type 'Yes' or 'No'").strip().lower()
-    
-    if export_choice == 'Yes':
-        filename = input("Enter the filename (with .xlsx extension): ").strip()
+    while True:
+        export_choice = input("\nDo you want to export this pivot table to an Excel file?\nType 'Yes' or 'No': ").strip().lower()
         
-        try:
-            # Couldn't figure out how to actually save a pivot table to Excel, used ChatGPT for help on this one!
-            df.to_excel(filename, index=True)
-            print(f"Results exported to {filename}")
-        except Exception as e:
-            print(f"Error exporting to Excel: {e}")
-    else:
-        print("Results not exported.")
+        if export_choice == 'yes':
+            filename = input("Enter the filename: ").strip()
+            if not filename.endswith('.xlsx'): # Used Claude for help with how to add '.xlsx' to the end of the user's filename
+                filename += '.xlsx'
+
+            try:
+                df.to_excel(filename, index=True)
+                print(f"Results exported to {filename}")
+                break
+            except Exception as e:
+                print(f"Error exporting to Excel: {e}")
+            break
+        elif export_choice == 'no':
+            print("Results not exported.")
+            break
+        else:
+            print("Invalid input. Please type 'Yes' or 'No'.")
 
 
 
