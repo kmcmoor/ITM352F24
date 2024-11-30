@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Quiz</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <h1>Your current score: <span id="current-score">0</span></h1>
+    
+    <div id="quiz-container">
+    </div>
+
+    <script>
+        let currentQuestionIndex = 0;
+        let questions = [];
+
+        // Load the questions when the page loads
+        fetch('/get_questions')
+            .then(response => response.json())
+            .then(data => {
+                questions = data;
+                loadQuestion(currentQuestionIndex);  // Load the first question
+            })
+            .catch(error => {
+                console.error('Error loading questions:', error);
+                document.getElementById('quiz-container').innerHTML = 
+                    '<p>Error loading quiz. Please try again.</p>';
+            });
+
+        // Function to load a specific question by index
+        function loadQuestion(index) {
+            if (index >= questions.length) {
+                window.location.href = '/results';  // Go to the results page when no more questions
+                return;
+            }
+
+            const question = questions[index];
+            const questionContainer = document.getElementById('quiz-container');
+
+            questionContainer.innerHTML = `
+                <h2>${question.question}</h2>
+                <form id="answer-form">
+                    ${question.answers.map(answer => `
+                        <label>
+                            <input type="radio" name="answer" value="${answer}">${answer}
+                        </label><br>
+                    `).join('')}
+                    <input type="hidden" name="correct_answer" value="${question.correct}">
+                    <button type="button" onclick="submitAnswer()">Submit Answer</button>
+                </form>
+            `;
+        }
+
+        // Function to submit the answer and update the score
+        function submitAnswer() {
+            const form = document.getElementById('answer-form');
+            const userAnswer = form.querySelector('input[name="answer"]:checked');
+            const correctAnswer = form.querySelector('input[name="correct_answer"]').value;
+
+            if (!userAnswer) {
+                alert("Please select an answer.");
+                return;
+            }
+
+            // Send the answer to the backend to check if it's correct
+            fetch('/submit_answer', {
+                method: 'POST',
+                body: new URLSearchParams({
+                    'answer': userAnswer.value,
+                    'correct_answer': correctAnswer
+                }),
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert(data.correct ? 'Correct!' : 'Incorrect');
+                document.getElementById('current-score').textContent = data.score;
+                currentQuestionIndex++;  // Move to the next question
+                loadQuestion(currentQuestionIndex);  // Load the next question
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('An error occurred. Please try again.');
+            });
+        }
+    </script>
+</body>
+</html>

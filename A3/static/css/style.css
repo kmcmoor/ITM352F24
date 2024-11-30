@@ -1,0 +1,19 @@
+/*Basic css*/
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+}
+
+#quiz-container {
+    margin: 20px 0;
+}
+
+button {
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+label {
+    font-size: 18px;
+}

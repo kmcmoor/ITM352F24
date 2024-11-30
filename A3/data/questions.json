@@ -1,0 +1,29 @@
+{
+    "questions": [
+        {
+            "question": "On what side of Oahu does the sun rise?",
+            "answers": ["East", "West", "North", "South"],
+            "correct": "East"
+        },
+        {
+            "question": "What is the name of the Hawaiian state fish?",
+            "answers": ["Humuhumunukunukuapua'a", "Mahi mahi", "Saddle wrasse", "Hapu'upu'u"],
+            "correct": "Humuhumunukunukuapua'a"
+        },
+        {
+            "question": "How many major islands make up Hawai'i?",
+            "answers": ["8", "7", "6", "1"],
+            "correct": "8"
+        },
+        {
+            "question": "What is the capital of Hawai'i",
+            "answers": ["Honolulu", "Hilo", "Kahului", "Mililani"],
+            "correct": "Honolulu"
+        },
+        {
+            "question": "Which Hawaiian island is known as 'The Garden Isle'?",
+            "answers": ["Kaua'i", "O'ahu", "Maui", "Moloka'i"],
+            "correct": "Kaua'i"
+        }
+    ]
+}
