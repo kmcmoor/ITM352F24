@@ -1,0 +1,19 @@
+{
+    "products": [
+        {
+            "id": 1,
+            "name": "Chocolate chip ice cream",
+            "price": 4.99
+        },
+        {
+            "id": 2,
+            "name": "Vanilla ice cream",
+            "price": 2.99
+        },
+        {
+            "id": 3,
+            "name": "Cookie dough ice cream",
+            "price": 3.99
+        }
+    ]
+}
