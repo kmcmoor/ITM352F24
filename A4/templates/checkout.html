@@ -1,34 +1,70 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Checkout Complete</title>
+    <title>Checkout - Ice Cream Shop</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
-    <h1>Thank you for your purchase, {{ username }}!</h1>
-    
-    <h2>Order Receipt</h2>
-    <table>
-        <tr>
-            <th>Product</th>
-            <th>Quantity</th>
-            <th>Price</th>
-            <th>Subtotal</th>
-        </tr>
-        {% for id, item in cart.items() %}
-        <tr>
-            <td>{{ item.name }}</td>
-            <td>{{ item.quantity }}</td>
-            <td>${{ item.price }}</td>
-            <td>${{ (item.price * item.quantity)|round(2) }}</td>
-        </tr>
-        {% endfor %}
-        <tr>
-            <td colspan="3"><strong>Total</strong></td>
-            <td><strong>${{ total|round(2) }}</strong></td>
-        </tr>
-    </table>
-
-    <a href="{{ url_for('shop') }}">Back to Shop</a>
-    <a href="{{ url_for('logout') }}">Logout</a>
+    <div class="container">
+        {% if cart %}
+        <h1>Checkout</h1>
+        
+        <table>
+            <thead>
+                <tr>
+                    <th>Item</th>
+                    <th>Price</th>
+                    <th>Quantity</th>
+                    <th>Subtotal</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in cart %}
+                <tr>
+                    <td>{{ item.name }}</td>
+                    <td>${{ "%.2f"|format(item.price) }}</td>
+                    <td>{{ item.quantity }}</td>
+                    <td>${{ "%.2f"|format(item.price * item.quantity) }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        
+        <h2>Total: ${{ "%.2f"|format(total) }}</h2>
+        
+        <form action="{{ url_for('checkout') }}" method="post">
+            <button type="submit">Confirm Purchase</button>
+        </form>
+        {% else %}
+            <h1>Receipt</h1>
+            <h2>Thank you for your purchase, {{ receipt.username }}!</h2>
+            
+            <table>
+                <thead>
+                    <tr>
+                        <th>Item</th>
+                        <th>Price</th>
+                        <th>Quantity</th>
+                        <th>Subtotal</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in receipt.items %}
+                    <tr>
+                        <td>{{ item.name }}</td>
+                        <td>${{ "%.2f"|format(item.price) }}</td>
+                        <td>{{ item.quantity }}</td>
+                        <td>${{ "%.2f"|format(item.price * item.quantity) }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            
+            <h3>Total: ${{ "%.2f"|format(receipt.total) }}</h3>
+            <p>Purchase Time: {{ receipt.timestamp }}</p>
+            
+            <a href="{{ url_for('home') }}">Continue Shopping</a>
+        {% endif %}
+    </div>
 </body>
 </html>

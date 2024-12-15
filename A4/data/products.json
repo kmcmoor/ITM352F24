@@ -1,19 +1,26 @@
-{
-    "products": [
-        {
-            "id": 1,
-            "name": "Chocolate chip ice cream",
-            "price": 4.99
-        },
-        {
-            "id": 2,
-            "name": "Vanilla ice cream",
-            "price": 2.99
-        },
-        {
-            "id": 3,
-            "name": "Cookie dough ice cream",
-            "price": 3.99
-        }
-    ]
-}
+[
+    {
+        "id": 1,
+        "name": "Vanilla Scoop",
+        "price": 3.5,
+        "quantity": 48
+    },
+    {
+        "id": 2,
+        "name": "Chocolate Delight",
+        "price": 4.0,
+        "quantity": 38
+    },
+    {
+        "id": 3,
+        "name": "Strawberry Swirl",
+        "price": 4.5,
+        "quantity": 30
+    },
+    {
+        "id": 4,
+        "name": "Mint Chocolate Chip",
+        "price": 4.25,
+        "quantity": 35
+    }
+]
