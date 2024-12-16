@@ -3,13 +3,13 @@
         "id": 1,
         "name": "Vanilla Scoop",
         "price": 3.5,
-        "quantity": 48
+        "quantity": 45
     },
     {
         "id": 2,
         "name": "Chocolate Delight",
         "price": 4.0,
-        "quantity": 38
+        "quantity": 23
     },
     {
         "id": 3,

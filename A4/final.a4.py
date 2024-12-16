@@ -1,4 +1,5 @@
-from flask import Flask, render_template, request, redirect, url_for, session
+#final.a4.py
+from flask import Flask, render_template, request, redirect, url_for, session, flash
 import json
 import os
 import time
@@ -55,22 +56,53 @@ def save_users(users):
 def load_products():
     """Load products from JSON file."""
     try:
-        with open(PRODUCTS_FILE, 'r') as f:
+        # Ensure data directory exists
+        os.makedirs('data', exist_ok=True)
+        
+        # Path to products file
+        products_path = os.path.join('data', 'products.json')
+        
+        # If file doesn't exist or is empty, create default products
+        if not os.path.exists(products_path) or os.path.getsize(products_path) == 0:
+            default_products = [
+                {"id": 1, "name": "Vanilla Scoop", "price": 3.50, "quantity": 50},
+                {"id": 2, "name": "Chocolate Delight", "price": 4.00, "quantity": 40},
+                {"id": 3, "name": "Strawberry Swirl", "price": 4.50, "quantity": 30},
+                {"id": 4, "name": "Mint Chocolate Chip", "price": 4.25, "quantity": 35}
+            ]
+            
+            # Write default products to file
+            with open(products_path, 'w') as f:
+                json.dump(default_products, f, indent=4)
+            
+            return default_products
+        
+        # Load products from file
+        with open(products_path, 'r') as f:
             products = json.load(f)
-            # Ensure each product has the required keys
+            
+            # Validate products have required keys
             for product in products:
                 if not all(key in product for key in ['id', 'name', 'price', 'quantity']):
                     raise ValueError("Incomplete product data")
+            
             return products
-    except (FileNotFoundError, json.JSONDecodeError, ValueError):
-        # Default products if file doesn't exist or is malformed
+    
+    except Exception as e:
+        print(f"Error loading products: {e}")
+        # Fallback to default products if loading fails
         default_products = [
             {"id": 1, "name": "Vanilla Scoop", "price": 3.50, "quantity": 50},
             {"id": 2, "name": "Chocolate Delight", "price": 4.00, "quantity": 40},
             {"id": 3, "name": "Strawberry Swirl", "price": 4.50, "quantity": 30},
             {"id": 4, "name": "Mint Chocolate Chip", "price": 4.25, "quantity": 35}
         ]
-        save_products(default_products)
+        
+        # Write default products to file
+        products_path = os.path.join('data', 'products.json')
+        with open(products_path, 'w') as f:
+            json.dump(default_products, f, indent=4)
+        
         return default_products
 
 def save_products(products):
@@ -165,8 +197,12 @@ def add_to_cart(product_id):
         
         session['cart'].append(cart_item)
         session.modified = True
+        
+        # Add a flash message
+        from flask import flash
+        flash(f'{quantity} {product["name"]} added to cart!', 'success')
     
-    return redirect(url_for('view_cart'))
+    return redirect(url_for('home'))
 
 @app.route('/cart')
 def view_cart():
@@ -192,7 +228,7 @@ def checkout():
         # Generate receipt
         receipt = {
             'username': session['username'],
-            'items': cart,
+            'items': list(cart),  # Convert to list explicitly
             'total': total,
             'timestamp': time.strftime("%Y-%m-%d %H:%M:%S")
         }

@@ -6,35 +6,36 @@
 </head>
 <body>
     <div class="container">
-        {% if cart %}
-        <h1>Checkout</h1>
-        
-        <table>
-            <thead>
-                <tr>
-                    <th>Item</th>
-                    <th>Price</th>
-                    <th>Quantity</th>
-                    <th>Subtotal</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for item in cart %}
-                <tr>
-                    <td>{{ item.name }}</td>
-                    <td>${{ "%.2f"|format(item.price) }}</td>
-                    <td>{{ item.quantity }}</td>
-                    <td>${{ "%.2f"|format(item.price * item.quantity) }}</td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-        
-        <h2>Total: ${{ "%.2f"|format(total) }}</h2>
-        
-        <form action="{{ url_for('checkout') }}" method="post">
-            <button type="submit">Confirm Purchase</button>
-        </form>
+        {% if not receipt %}
+            <h1>Checkout</h1>
+            
+            <table>
+                <thead>
+                    <tr>
+                        <th>Item</th>
+                        <th>Price</th>
+                        <th>Quantity</th>
+                        <th>Subtotal</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in cart %}
+                    <tr>
+                        <td>{{ item.name }}</td>
+                        <td>${{ "%.2f"|format(item.price) }}</td>
+                        <td>{{ item.quantity }}</td>
+                        <td>${{ "%.2f"|format(item.price * item.quantity) }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            
+            <h2>Total: ${{ "%.2f"|format(total) }}</h2>
+            
+            <form action="{{ url_for('checkout') }}" method="post">
+                <button type="submit">Confirm Purchase</button>
+            </form>
+            <a href="{{ url_for('home') }}">Return to Home</a>
         {% else %}
             <h1>Receipt</h1>
             <h2>Thank you for your purchase, {{ receipt.username }}!</h2>

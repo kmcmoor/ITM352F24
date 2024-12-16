@@ -3,9 +3,32 @@
 <head>
     <title>Ice Cream Shop</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <style>
+        .flash-message {
+            padding: 10px;
+            margin-bottom: 15px;
+            border-radius: 5px;
+            text-align: center;
+        }
+        .flash-success {
+            background-color: #dff0d8;
+            color: #3c763d;
+            border: 1px solid #d6e9c6;
+        }
+    </style>
 </head>
 <body>
     <div class="container">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="flash-message flash-{{ category }}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
         <div class="nav">
             {% if username %}
                 <span>Welcome, {{ username }}!</span>
@@ -22,38 +45,28 @@
             {% endif %}
         </div>
 
-        <h1>Ice Cream Shop</h1>
+        <h1>Welcome to the Ice Cream Shop</h1>
         
-        <table>
-            <thead>
-                <tr>
-                    <th>Flavor</th>
-                    <th>Price</th>
-                    <th>Available</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for product in products %}
-                <tr>
-                    <td>{{ product.name }}</td>
-                    <td>${{ "%.2f"|format(product.price) }}</td>
-                    <td>{{ product.quantity }}</td>
-                    <td>
-                        {% if username and product.quantity > 0 %}
+        <div class="products">
+            {% for product in products %}
+                <div class="product-card">
+                    <h2>{{ product.name }}</h2>
+                    <p class="price">${{ "%.2f"|format(product.price) }}</p>
+                    <p class="stock">In stock: {{ product.quantity }}</p>
+                    
+                    {% if username %}
                         <form action="{{ url_for('add_to_cart', product_id=product.id) }}" method="post">
                             <input type="number" name="quantity" min="1" max="{{ product.quantity }}" value="1" required>
-                            <button type="submit">Add to Cart</button>
+                            <button type="submit" {% if product.quantity <= 0 %}disabled{% endif %}>
+                                Add to Cart
+                            </button>
                         </form>
-                        {% else %}
-                            {% if not username %}Please login to purchase{% endif %}
-                            {% if product.quantity == 0 %}Out of stock{% endif %}
-                        {% endif %}
-                    </td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+                    {% else %}
+                        <p><a href="{{ url_for('login') }}">Login to purchase</a></p>
+                    {% endif %}
+                </div>
+            {% endfor %}
+        </div>
     </div>
 </body>
 </html>
