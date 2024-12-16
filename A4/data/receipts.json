@@ -400,5 +400,115 @@
         ],
         "total": 4.25,
         "timestamp": "2024-12-15 21:25:51"
+    },
+    {
+        "receipt_id": "REC-1734335142",
+        "username": "kimberly",
+        "items": [
+            {
+                "id": 2,
+                "name": "Chocolate Delight",
+                "price": 4.0,
+                "quantity": 1
+            }
+        ],
+        "total": 4.0,
+        "timestamp": "2024-12-15 21:45:42"
+    },
+    {
+        "receipt_id": "REC-1734335571",
+        "username": "kimberly",
+        "items": [
+            {
+                "id": 1,
+                "name": "Vanilla Scoop",
+                "price": 3.5,
+                "quantity": 1
+            },
+            {
+                "id": 2,
+                "name": "Chocolate Delight",
+                "price": 4.0,
+                "quantity": 2
+            }
+        ],
+        "total": 11.5,
+        "timestamp": "2024-12-15 21:52:51"
+    },
+    {
+        "receipt_id": "REC-1734336220",
+        "username": "kimberly",
+        "items": [
+            {
+                "id": 3,
+                "name": "Strawberry Swirl",
+                "price": 4.5,
+                "quantity": 1
+            }
+        ],
+        "total": 4.5,
+        "timestamp": "2024-12-15 22:03:40"
+    },
+    {
+        "receipt_id": "REC-1734336292",
+        "username": "kimberly",
+        "items": [
+            {
+                "id": 3,
+                "name": "Strawberry Swirl",
+                "price": 4.5,
+                "quantity": 1
+            }
+        ],
+        "total": 4.5,
+        "timestamp": "2024-12-15 22:04:52"
+    },
+    {
+        "receipt_id": "REC-1734336515",
+        "username": "kimberly",
+        "items": [
+            {
+                "id": 4,
+                "name": "Mint Chocolate Chip",
+                "price": 4.25,
+                "quantity": 1
+            }
+        ],
+        "total": 4.25,
+        "timestamp": "2024-12-15 22:08:35"
+    },
+    {
+        "receipt_id": "REC-1734336607",
+        "username": "kimberly",
+        "items": [
+            {
+                "id": 4,
+                "name": "Mint Chocolate Chip",
+                "price": 4.25,
+                "quantity": 1
+            },
+            {
+                "id": 4,
+                "name": "Mint Chocolate Chip",
+                "price": 4.25,
+                "quantity": 1
+            }
+        ],
+        "total": 8.5,
+        "timestamp": "2024-12-15 22:10:07"
+    },
+    {
+        "receipt_id": "REC-1734337308",
+        "username": "kimberly",
+        "items": [
+            {
+                "id": 3,
+                "name": "Strawberry Swirl",
+                "price": 4.5,
+                "quantity": 1
+            }
+        ],
+        "total": 4.5,
+        "timestamp": "2024-12-15 22:21:48"
     }
 ]

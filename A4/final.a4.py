@@ -274,9 +274,6 @@ def checkout():
         return redirect(url_for('login'))
     
     cart = session.get('cart', [])
-    if not isinstance(cart, list):
-        cart = list(cart)
-    
     if not cart:
         flash('Your cart is empty', 'error')
         return redirect(url_for('home'))
@@ -284,36 +281,33 @@ def checkout():
     total = sum(item['price'] * item['quantity'] for item in cart)
     
     if request.method == 'POST':
-        try:
-            receipt = {
-                'receipt_id': f"REC-{int(time.time())}",
-                'username': session['username'],
-                'items': cart,
-                'total': total,
-                'timestamp': datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-            }
-            
-            print("Generated Receipt:", receipt)  # Debug print
-            
-            if not save_receipt(receipt):
-                flash('Error processing your order. Please try again.', 'error')
-                return redirect(url_for('checkout'))
-            
-            if not update_product_quantities(cart):
-                flash('Error updating inventory. Please contact support.', 'warning')
-            
-            session['cart'] = []  # Clear the cart
-            session.modified = True
-            
-            flash('Purchase successful! Thank you for your order.', 'success')
-            return render_template('checkout.html', receipt=receipt)
+        receipt = {
+            'receipt_id': f"REC-{int(time.time())}",
+            'username': session['username'],
+            'items': cart,  # Make sure this is a list
+            'total': total,
+            'timestamp': datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        }
         
-        except Exception as e:
-            import traceback
-            print(f"Checkout error: {e}")
-            print(traceback.format_exc())
-            flash('An error occurred during checkout. Please try again.', 'error')
-            return redirect(url_for('checkout'))
+        print("Generated Receipt:", receipt)  # Debug print
+        
+        # Save receipt
+        save_receipt(receipt)
+        
+        # Update product quantities
+        update_product_quantities(cart)
+        
+        # Clear the cart
+        session['cart'] = []
+        session.modified = True
+        
+        # Explicitly pass items to the template
+        return render_template('checkout.html', 
+                               receipt_id=receipt['receipt_id'], 
+                               username=receipt['username'], 
+                               items=cart,  # Pass cart items directly 
+                               total=total, 
+                               timestamp=receipt['timestamp'])
     
     return render_template('checkout.html', cart=cart, total=total)
 
