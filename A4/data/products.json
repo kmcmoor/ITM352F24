@@ -15,12 +15,12 @@
         "id": 3,
         "name": "Strawberry Swirl",
         "price": 4.5,
-        "quantity": 18
+        "quantity": 17
     },
     {
         "id": 4,
         "name": "Mint Chocolate Chip",
         "price": 4.25,
-        "quantity": 22
+        "quantity": 20
     }
 ]

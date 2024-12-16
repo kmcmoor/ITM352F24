@@ -4,6 +4,7 @@ import json
 import os
 import time
 from datetime import datetime  # Add this new import
+from receipt_generator import generate_receipt, save_receipt
 
 app = Flask(__name__)
 app.secret_key = 'your_secret_key_here'
@@ -302,13 +303,7 @@ def checkout():
     total = sum(item['price'] * item['quantity'] for item in cart)
     
     if request.method == 'POST':
-        receipt = {
-            'receipt_id': f"REC-{int(time.time())}",
-            'username': session['username'],
-            'items': cart,  # Make sure this is a list
-            'total': total,
-            'timestamp': datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        }
+        receipt = generate_receipt(session['username'], cart, total)
         
         print("Generated Receipt:", receipt)  # Debug print
         
