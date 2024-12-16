@@ -197,12 +197,21 @@ def login():
         for user in users:
             if user['username'] == username and user['password'] == password:
                 session['username'] = username
-                session['cart'] = []  # Initialize empty cart
+                session['cart'] = []  # Explicitly initialize as an empty list
+                session.modified = True  # Ensure the session is marked as modified
                 return redirect(url_for('home'))
         
         return render_template('login.html', error='Invalid credentials')
     
     return render_template('login.html')
+
+@app.route('/debug_session')
+def debug_session():
+    """Debug route to print session contents"""
+    print("Debug Session:")
+    print("Username:", session.get('username'))
+    print("Cart:", session.get('cart'))
+    return "Check your console"
 
 @app.route('/logout')
 def logout():
@@ -235,14 +244,14 @@ def add_to_cart(product_id):
             'quantity': quantity
         }
         
-        if 'cart' not in session:
+        # Ensure cart exists and is a list
+        if 'cart' not in session or not isinstance(session['cart'], list):
             session['cart'] = []
         
         session['cart'].append(cart_item)
         session.modified = True
         
         # Add a flash message
-        from flask import flash
         flash(f'{quantity} {product["name"]} added to cart!', 'success')
     
     return redirect(url_for('home'))
@@ -260,19 +269,14 @@ def view_cart():
 
 @app.route('/checkout', methods=['GET', 'POST'])
 def checkout():
-    """Enhanced checkout process with error handling and receipt storage."""
     if 'username' not in session:
         flash('Please log in to checkout', 'error')
         return redirect(url_for('login'))
     
-    # Explicitly get cart from session and ensure it's a list
     cart = session.get('cart', [])
-    
-    # Convert cart to list if it's not already a list
     if not isinstance(cart, list):
         cart = list(cart)
     
-    # Check for empty cart
     if not cart:
         flash('Your cart is empty', 'error')
         return redirect(url_for('home'))
@@ -281,33 +285,33 @@ def checkout():
     
     if request.method == 'POST':
         try:
-            # Generate receipt with unique ID
             receipt = {
                 'receipt_id': f"REC-{int(time.time())}",
                 'username': session['username'],
-                'items': cart,  # Cart is already a list, no conversion needed
+                'items': cart,
                 'total': total,
                 'timestamp': datetime.now().strftime("%Y-%m-%d %H:%M:%S")
             }
             
-            # Save the receipt
+            print("Generated Receipt:", receipt)  # Debug print
+            
             if not save_receipt(receipt):
                 flash('Error processing your order. Please try again.', 'error')
                 return redirect(url_for('checkout'))
             
-            # Update product quantities (if needed)
             if not update_product_quantities(cart):
                 flash('Error updating inventory. Please contact support.', 'warning')
             
-            # Explicitly clear cart and mark session as modified
-            session['cart'] = []
+            session['cart'] = []  # Clear the cart
             session.modified = True
             
             flash('Purchase successful! Thank you for your order.', 'success')
             return render_template('checkout.html', receipt=receipt)
-            
+        
         except Exception as e:
+            import traceback
             print(f"Checkout error: {e}")
+            print(traceback.format_exc())
             flash('An error occurred during checkout. Please try again.', 'error')
             return redirect(url_for('checkout'))
     

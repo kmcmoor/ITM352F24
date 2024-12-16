@@ -3,24 +3,24 @@
         "id": 1,
         "name": "Vanilla Scoop",
         "price": 3.5,
-        "quantity": 39
+        "quantity": 28
     },
     {
         "id": 2,
         "name": "Chocolate Delight",
         "price": 4.0,
-        "quantity": 16
+        "quantity": 15
     },
     {
         "id": 3,
         "name": "Strawberry Swirl",
         "price": 4.5,
-        "quantity": 23
+        "quantity": 21
     },
     {
         "id": 4,
         "name": "Mint Chocolate Chip",
         "price": 4.25,
-        "quantity": 32
+        "quantity": 27
     }
 ]

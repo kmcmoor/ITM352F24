@@ -152,5 +152,253 @@
         ],
         "total": 7.5,
         "timestamp": "2024-12-15 19:47:03"
+    },
+    {
+        "receipt_id": "REC-1734328278",
+        "username": "kim",
+        "items": [
+            {
+                "id": 1,
+                "name": "Vanilla Scoop",
+                "price": 3.5,
+                "quantity": 1
+            }
+        ],
+        "total": 3.5,
+        "timestamp": "2024-12-15 19:51:18"
+    },
+    {
+        "receipt_id": "REC-1734328706",
+        "username": "kim",
+        "items": [
+            {
+                "id": 1,
+                "name": "Vanilla Scoop",
+                "price": 3.5,
+                "quantity": 1
+            }
+        ],
+        "total": 3.5,
+        "timestamp": "2024-12-15 19:58:26"
+    },
+    {
+        "receipt_id": "REC-1734328719",
+        "username": "kim",
+        "items": [
+            {
+                "id": 4,
+                "name": "Mint Chocolate Chip",
+                "price": 4.25,
+                "quantity": 1
+            }
+        ],
+        "total": 4.25,
+        "timestamp": "2024-12-15 19:58:39"
+    },
+    {
+        "receipt_id": "REC-1734329362",
+        "username": "kim",
+        "items": [
+            {
+                "id": 1,
+                "name": "Vanilla Scoop",
+                "price": 3.5,
+                "quantity": 1
+            },
+            {
+                "id": 1,
+                "name": "Vanilla Scoop",
+                "price": 3.5,
+                "quantity": 1
+            }
+        ],
+        "total": 7.0,
+        "timestamp": "2024-12-15 20:09:22"
+    },
+    {
+        "receipt_id": "REC-1734330453",
+        "username": "kim",
+        "items": [
+            {
+                "id": 1,
+                "name": "Vanilla Scoop",
+                "price": 3.5,
+                "quantity": 1
+            }
+        ],
+        "total": 3.5,
+        "timestamp": "2024-12-15 20:27:33"
+    },
+    {
+        "receipt_id": "REC-1734330707",
+        "username": "kim",
+        "items": [
+            {
+                "id": 1,
+                "name": "Vanilla Scoop",
+                "price": 3.5,
+                "quantity": 1
+            }
+        ],
+        "total": 3.5,
+        "timestamp": "2024-12-15 20:31:47"
+    },
+    {
+        "receipt_id": "REC-1734330717",
+        "username": "kim",
+        "items": [
+            {
+                "id": 4,
+                "name": "Mint Chocolate Chip",
+                "price": 4.25,
+                "quantity": 1
+            },
+            {
+                "id": 3,
+                "name": "Strawberry Swirl",
+                "price": 4.5,
+                "quantity": 1
+            }
+        ],
+        "total": 8.75,
+        "timestamp": "2024-12-15 20:31:57"
+    },
+    {
+        "receipt_id": 1734332379,
+        "username": "k",
+        "items": [
+            {
+                "id": 1,
+                "name": "Vanilla Scoop",
+                "price": 3.5,
+                "quantity": 1
+            },
+            {
+                "id": 3,
+                "name": "Strawberry Swirl",
+                "price": 4.5,
+                "quantity": 1
+            },
+            {
+                "id": 4,
+                "name": "Mint Chocolate Chip",
+                "price": 4.25,
+                "quantity": 1
+            },
+            {
+                "id": 1,
+                "name": "Vanilla Scoop",
+                "price": 3.5,
+                "quantity": 1
+            }
+        ],
+        "total": 15.75,
+        "timestamp": "2024-12-15 20:59:39"
+    },
+    {
+        "receipt_id": 1734332421,
+        "username": "k",
+        "items": [
+            {
+                "id": 1,
+                "name": "Vanilla Scoop",
+                "price": 3.5,
+                "quantity": 1
+            },
+            {
+                "id": 3,
+                "name": "Strawberry Swirl",
+                "price": 4.5,
+                "quantity": 1
+            },
+            {
+                "id": 4,
+                "name": "Mint Chocolate Chip",
+                "price": 4.25,
+                "quantity": 1
+            },
+            {
+                "id": 1,
+                "name": "Vanilla Scoop",
+                "price": 3.5,
+                "quantity": 1
+            }
+        ],
+        "total": 15.75,
+        "timestamp": "2024-12-15 21:00:21"
+    },
+    {
+        "receipt_id": 1734332615,
+        "username": "kimberly",
+        "items": [
+            {
+                "id": 1,
+                "name": "Vanilla Scoop",
+                "price": 3.5,
+                "quantity": 1
+            },
+            {
+                "id": 4,
+                "name": "Mint Chocolate Chip",
+                "price": 4.25,
+                "quantity": 1
+            }
+        ],
+        "total": 7.75,
+        "timestamp": "2024-12-15 21:03:35"
+    },
+    {
+        "receipt_id": 1734332927,
+        "username": "kimberly",
+        "cart_items": [
+            {
+                "id": 1,
+                "name": "Vanilla Scoop",
+                "price": 3.5,
+                "quantity": 1
+            },
+            {
+                "id": 4,
+                "name": "Mint Chocolate Chip",
+                "price": 4.25,
+                "quantity": 1
+            }
+        ],
+        "total": 7.75,
+        "timestamp": "2024-12-15 21:08:47"
+    },
+    {
+        "receipt_id": "REC-1734333113",
+        "username": "kimberly",
+        "items": [
+            {
+                "id": 1,
+                "name": "Vanilla Scoop",
+                "price": 3.5,
+                "quantity": 1
+            },
+            {
+                "id": 4,
+                "name": "Mint Chocolate Chip",
+                "price": 4.25,
+                "quantity": 1
+            }
+        ],
+        "total": 7.75,
+        "timestamp": "2024-12-15 21:11:53"
+    },
+    {
+        "receipt_id": "REC-1734333951",
+        "username": "kimberly",
+        "items": [
+            {
+                "id": 4,
+                "name": "Mint Chocolate Chip",
+                "price": 4.25,
+                "quantity": 1
+            }
+        ],
+        "total": 4.25,
+        "timestamp": "2024-12-15 21:25:51"
     }
 ]
