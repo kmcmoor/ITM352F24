@@ -128,15 +128,36 @@ def load_receipts():
 def save_receipt(receipt):
     """Save a new receipt to the receipts file."""
     try:
+        # Ensure the receipts file exists before trying to load it
+        ensure_receipts_file()
+        
+        # Load existing receipts
         receipts = load_receipts()
+        
+        # Add new receipt
         receipts.append(receipt)
-        os.makedirs(os.path.dirname(RECEIPTS_FILE), exist_ok=True)
+        
+        # Save updated receipts
         with open(RECEIPTS_FILE, 'w') as f:
             json.dump(receipts, f, indent=4)
+        
         return True
     except Exception as e:
         print(f"Error saving receipt: {e}")
         return False
+    
+def ensure_receipts_file():
+    """Ensure the receipts JSON file exists."""
+    try:
+        # Create the directory if it doesn't exist
+        os.makedirs(os.path.dirname(RECEIPTS_FILE), exist_ok=True)
+        
+        # If the file doesn't exist or is empty, create it with an empty list
+        if not os.path.exists(RECEIPTS_FILE) or os.path.getsize(RECEIPTS_FILE) == 0:
+            with open(RECEIPTS_FILE, 'w') as f:
+                json.dump([], f)
+    except Exception as e:
+        print(f"Error ensuring receipts file exists: {e}")
 
 def update_product_quantities(cart):
     """Update product quantities after successful purchase."""

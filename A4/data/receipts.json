@@ -510,5 +510,33 @@
         ],
         "total": 4.5,
         "timestamp": "2024-12-15 22:21:48"
+    },
+    {
+        "receipt_id": "REC-1734337531",
+        "username": "kimberly",
+        "items": [
+            {
+                "id": 4,
+                "name": "Mint Chocolate Chip",
+                "price": 4.25,
+                "quantity": 1
+            }
+        ],
+        "total": 4.25,
+        "timestamp": "2024-12-15 22:25:31"
+    },
+    {
+        "receipt_id": "REC-1734337855",
+        "username": "kimberly",
+        "items": [
+            {
+                "id": 4,
+                "name": "Mint Chocolate Chip",
+                "price": 4.25,
+                "quantity": 1
+            }
+        ],
+        "total": 4.25,
+        "timestamp": "2024-12-15 22:30:55"
     }
 ]
