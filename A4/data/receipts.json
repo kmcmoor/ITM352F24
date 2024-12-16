@@ -1,0 +1,156 @@
+[
+    {
+        "receipt_id": "REC-1734326846",
+        "username": "k",
+        "items": [
+            {
+                "id": 1,
+                "name": "Vanilla Scoop",
+                "price": 3.5,
+                "quantity": 1
+            },
+            {
+                "id": 2,
+                "name": "Chocolate Delight",
+                "price": 4.0,
+                "quantity": 5
+            },
+            {
+                "id": 3,
+                "name": "Strawberry Swirl",
+                "price": 4.5,
+                "quantity": 1
+            }
+        ],
+        "total": 28.0,
+        "timestamp": "2024-12-15 19:27:26"
+    },
+    {
+        "receipt_id": "REC-1734326879",
+        "username": "k",
+        "items": [
+            {
+                "id": 1,
+                "name": "Vanilla Scoop",
+                "price": 3.5,
+                "quantity": 1
+            },
+            {
+                "id": 2,
+                "name": "Chocolate Delight",
+                "price": 4.0,
+                "quantity": 5
+            }
+        ],
+        "total": 23.5,
+        "timestamp": "2024-12-15 19:27:59"
+    },
+    {
+        "receipt_id": "REC-1734326904",
+        "username": "k",
+        "items": [
+            {
+                "id": 1,
+                "name": "Vanilla Scoop",
+                "price": 3.5,
+                "quantity": 1
+            },
+            {
+                "id": 3,
+                "name": "Strawberry Swirl",
+                "price": 4.5,
+                "quantity": 1
+            }
+        ],
+        "total": 8.0,
+        "timestamp": "2024-12-15 19:28:24"
+    },
+    {
+        "receipt_id": "REC-1734327005",
+        "username": "k",
+        "items": [
+            {
+                "id": 1,
+                "name": "Vanilla Scoop",
+                "price": 3.5,
+                "quantity": 1
+            }
+        ],
+        "total": 3.5,
+        "timestamp": "2024-12-15 19:30:05"
+    },
+    {
+        "receipt_id": "REC-1734327036",
+        "username": "k",
+        "items": [
+            {
+                "id": 1,
+                "name": "Vanilla Scoop",
+                "price": 3.5,
+                "quantity": 1
+            }
+        ],
+        "total": 3.5,
+        "timestamp": "2024-12-15 19:30:36"
+    },
+    {
+        "receipt_id": "REC-1734327629",
+        "username": "k",
+        "items": [
+            {
+                "id": 1,
+                "name": "Vanilla Scoop",
+                "price": 3.5,
+                "quantity": 1
+            },
+            {
+                "id": 2,
+                "name": "Chocolate Delight",
+                "price": 4.0,
+                "quantity": 1
+            }
+        ],
+        "total": 7.5,
+        "timestamp": "2024-12-15 19:40:29"
+    },
+    {
+        "receipt_id": "REC-1734327655",
+        "username": "k",
+        "items": [
+            {
+                "id": 3,
+                "name": "Strawberry Swirl",
+                "price": 4.5,
+                "quantity": 5
+            },
+            {
+                "id": 4,
+                "name": "Mint Chocolate Chip",
+                "price": 4.25,
+                "quantity": 3
+            }
+        ],
+        "total": 35.25,
+        "timestamp": "2024-12-15 19:40:55"
+    },
+    {
+        "receipt_id": "REC-1734328023",
+        "username": "kim",
+        "items": [
+            {
+                "id": 2,
+                "name": "Chocolate Delight",
+                "price": 4.0,
+                "quantity": 1
+            },
+            {
+                "id": 1,
+                "name": "Vanilla Scoop",
+                "price": 3.5,
+                "quantity": 1
+            }
+        ],
+        "total": 7.5,
+        "timestamp": "2024-12-15 19:47:03"
+    }
+]

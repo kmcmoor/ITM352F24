@@ -3,13 +3,15 @@ from flask import Flask, render_template, request, redirect, url_for, session, f
 import json
 import os
 import time
+from datetime import datetime  # Add this new import
 
 app = Flask(__name__)
-app.secret_key = 'your_secret_key_here'  # Important for session management
+app.secret_key = 'your_secret_key_here'
 
 # File paths for data storage
 USERS_FILE = 'data/users.json'
 PRODUCTS_FILE = 'data/products.json'
+RECEIPTS_FILE = 'data/receipts.json'  # Add this new constant
 
 def load_users():
     """Load users from JSON file."""
@@ -110,6 +112,47 @@ def save_products(products):
     os.makedirs(os.path.dirname(PRODUCTS_FILE), exist_ok=True)
     with open(PRODUCTS_FILE, 'w') as f:
         json.dump(products, f, indent=4)
+
+def load_receipts():
+    """Load receipts from JSON file."""
+    try:
+        os.makedirs(os.path.dirname(RECEIPTS_FILE), exist_ok=True)
+        if not os.path.exists(RECEIPTS_FILE) or os.path.getsize(RECEIPTS_FILE) == 0:
+            return []
+        with open(RECEIPTS_FILE, 'r') as f:
+            return json.load(f)
+    except Exception as e:
+        print(f"Error loading receipts: {e}")
+        return []
+
+def save_receipt(receipt):
+    """Save a new receipt to the receipts file."""
+    try:
+        receipts = load_receipts()
+        receipts.append(receipt)
+        os.makedirs(os.path.dirname(RECEIPTS_FILE), exist_ok=True)
+        with open(RECEIPTS_FILE, 'w') as f:
+            json.dump(receipts, f, indent=4)
+        return True
+    except Exception as e:
+        print(f"Error saving receipt: {e}")
+        return False
+
+def update_product_quantities(cart):
+    """Update product quantities after successful purchase."""
+    try:
+        products = load_products()
+        for cart_item in cart:
+            for product in products:
+                if product['id'] == cart_item['id']:
+                    # Quantity was already decremented when adding to cart,
+                    # so we don't need to decrement it again
+                    pass
+        save_products(products)
+        return True
+    except Exception as e:
+        print(f"Error updating product quantities: {e}")
+        return False
 
 @app.route('/')
 def home():
@@ -217,27 +260,56 @@ def view_cart():
 
 @app.route('/checkout', methods=['GET', 'POST'])
 def checkout():
-    """Checkout process."""
+    """Enhanced checkout process with error handling and receipt storage."""
     if 'username' not in session:
+        flash('Please log in to checkout', 'error')
         return redirect(url_for('login'))
     
+    # Explicitly get cart from session and ensure it's a list
     cart = session.get('cart', [])
+    
+    # Convert cart to list if it's not already a list
+    if not isinstance(cart, list):
+        cart = list(cart)
+    
+    # Check for empty cart
+    if not cart:
+        flash('Your cart is empty', 'error')
+        return redirect(url_for('home'))
+    
     total = sum(item['price'] * item['quantity'] for item in cart)
     
     if request.method == 'POST':
-        # Generate receipt
-        receipt = {
-            'username': session['username'],
-            'items': list(cart),  # Convert to list explicitly
-            'total': total,
-            'timestamp': time.strftime("%Y-%m-%d %H:%M:%S")
-        }
-        
-        # Clear cart after checkout
-        session['cart'] = []
-        session.modified = True
-        
-        return render_template('checkout.html', receipt=receipt)
+        try:
+            # Generate receipt with unique ID
+            receipt = {
+                'receipt_id': f"REC-{int(time.time())}",
+                'username': session['username'],
+                'items': cart,  # Cart is already a list, no conversion needed
+                'total': total,
+                'timestamp': datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+            }
+            
+            # Save the receipt
+            if not save_receipt(receipt):
+                flash('Error processing your order. Please try again.', 'error')
+                return redirect(url_for('checkout'))
+            
+            # Update product quantities (if needed)
+            if not update_product_quantities(cart):
+                flash('Error updating inventory. Please contact support.', 'warning')
+            
+            # Explicitly clear cart and mark session as modified
+            session['cart'] = []
+            session.modified = True
+            
+            flash('Purchase successful! Thank you for your order.', 'success')
+            return render_template('checkout.html', receipt=receipt)
+            
+        except Exception as e:
+            print(f"Checkout error: {e}")
+            flash('An error occurred during checkout. Please try again.', 'error')
+            return redirect(url_for('checkout'))
     
     return render_template('checkout.html', cart=cart, total=total)
 
