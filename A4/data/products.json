@@ -9,7 +9,7 @@
         "id": 2,
         "name": "Chocolate Delight",
         "price": 4.0,
-        "quantity": 12
+        "quantity": 10
     },
     {
         "id": 3,
@@ -21,6 +21,6 @@
         "id": 4,
         "name": "Mint Chocolate Chip",
         "price": 4.25,
-        "quantity": 23
+        "quantity": 22
     }
 ]

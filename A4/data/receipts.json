@@ -538,5 +538,113 @@
         ],
         "total": 4.25,
         "timestamp": "2024-12-15 22:30:55"
+    },
+    {
+        "receipt_id": "REC-1734338331",
+        "username": "kimberly",
+        "items": [
+            {
+                "id": 2,
+                "name": "Chocolate Delight",
+                "price": 4.0,
+                "quantity": 1
+            }
+        ],
+        "total": 4.0,
+        "timestamp": "2024-12-15 22:38:51"
+    },
+    {
+        "receipt_id": "REC-1734338453",
+        "username": "kimberly",
+        "items": [
+            {
+                "id": 2,
+                "name": "Chocolate Delight",
+                "price": 4.0,
+                "quantity": 1
+            },
+            {
+                "id": 4,
+                "name": "Mint Chocolate Chip",
+                "price": 4.25,
+                "quantity": 1
+            }
+        ],
+        "total": 8.25,
+        "timestamp": "2024-12-15 22:40:53"
+    },
+    {
+        "receipt_id": "REC-1734338794",
+        "username": "kimberly",
+        "items": [
+            {
+                "id": 2,
+                "name": "Chocolate Delight",
+                "price": 4.0,
+                "quantity": 1
+            },
+            {
+                "id": 4,
+                "name": "Mint Chocolate Chip",
+                "price": 4.25,
+                "quantity": 1
+            }
+        ],
+        "total": 8.25,
+        "timestamp": "2024-12-15 22:46:34"
+    },
+    {
+        "receipt_id": "REC-1734338980",
+        "username": "kimberly",
+        "items": [
+            {
+                "id": 2,
+                "name": "Chocolate Delight",
+                "price": 4.0,
+                "quantity": 1
+            },
+            {
+                "id": 4,
+                "name": "Mint Chocolate Chip",
+                "price": 4.25,
+                "quantity": 1
+            }
+        ],
+        "total": 8.25,
+        "timestamp": "2024-12-15 22:49:40"
+    },
+    {
+        "receipt_id": "REC-1734339195",
+        "username": "kimberly",
+        "items": [
+            {
+                "id": 2,
+                "name": "Chocolate Delight",
+                "price": 4.0,
+                "quantity": 1
+            },
+            {
+                "id": 4,
+                "name": "Mint Chocolate Chip",
+                "price": 4.25,
+                "quantity": 1
+            }
+        ],
+        "total": 8.25,
+        "timestamp": "2024-12-15 22:53:15"
+    },
+    {
+        "receipt_id": "REC-1734339330",
+        "username": "kimberly",
+        "items": [
+            {
+                "id": 2,
+                "name": "Chocolate Delight",
+                "price": 4.0,
+                "quantity": 1
+            }
+        ],
+        "total": 4.0,
+        "timestamp": "2024-12-15 22:55:30"
     }
 ]
